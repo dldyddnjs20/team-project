@@ -1,0 +1,81 @@
+.create-page {
+    position: absolute;
+    width: 700px;
+    margin: auto;
+    top: 170px;
+    left: 620px;
+}
+
+.form {
+    position: absolute;
+    z-index: 1;
+    background: #00000081;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    position: relative;
+    outline: 0;
+    background: #f2f2f2;
+    width: 600px;
+    height: 70px;
+    border: 0;
+    margin: 10px 0 40px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.form input::placeholder {
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.form button {
+    font-family: 'Do Hyeon', sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #b97f01;
+    width: 600px;
+    height: 70px;
+    border: 0;
+    padding: 20px;
+    color: #FFFFFF;
+    font-size: 20px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.form button:hover,.form button:active,.form button:focus {
+    background: #b97f01;
+}
+
+input[type=radio]{
+	width: 0;
+    height: 0;
+    position: absolute;
+    left: -9999px;
+}
+
+input[type=radio] + label{
+    margin: 10px 98px 25px;
+    padding: .75em 1.5em;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    border: solid 1px #DDD;
+    background-color: #FFF;
+    line-height: 140%;
+    text-align: center;
+    cursor: pointer;
+}
+
+input[type=radio]:checked + label{
+	background-color: #b97f01;
+    color: #FFF;
+    border-color: #b97f01;
+    z-index: 1;
+}

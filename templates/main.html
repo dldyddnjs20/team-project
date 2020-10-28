@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block section %}
+
+<div class="main_text">
+  <h1>다양하고 색다른 공간을 찾고 계신가요?</h1>
+  <p>ISYT에서 누구나 편리하게 공간을 대여하고</br>
+    캘린더를 이용하여 손쉽게 예약할 수 있습니다!</p>
+</div>
+{% if g.user %}
+<div class="button" OnClick="location.href='calendar'">예약하기</div>
+{% else %}
+<div class="button" OnClick="location.href='login'">예약하기</div>
+{% endif %}
+
+{% endblock %}

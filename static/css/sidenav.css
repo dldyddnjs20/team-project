@@ -1,0 +1,79 @@
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 300;
+  top: 15px;
+  left: 0;
+  background-color: #272727;
+  overflow-x: hidden;
+  transition: 0.8s ease-in-out;
+  padding-top: 60px;
+}
+.sidenav p {
+  color: white;
+  margin: 40px 0px 20px 20px;
+  text-decoration: none;
+  font-size: 25px;
+}
+.sidenav h5 {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin-top: 700px;
+  margin-left: 130px;
+}
+.sidenav a {
+  color: rgb(214, 214, 214);
+  position: relative;
+  font-size: 20px;
+  text-decoration: none;
+  margin-top: -25px;
+  margin-left: 20px;
+  transition: 0.8s ease-in-out;
+}
+.sidenav a:hover,
+.offcanvas a:focus {
+  color: white;
+}
+.sidenav li {
+  color: white;
+  position: relative;
+  margin: 18px 0px 0px 20px;
+  font-size: 15px;
+}
+.closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px !important;
+  margin-left: 50px;
+}
+.openmenu:hover {
+  color: rgb(116, 116, 116);
+  transition: 0.5s ease-in-out;
+}
+.openmenu {
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+.openmenu > i {
+  font-size: 30px;
+}
+
+.bottom {
+  text-align: center;
+  line-height: 30px;
+  margin-top: 80px;
+}
+
+/* 미디어쿼리 적용 */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}

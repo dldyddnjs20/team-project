@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+  <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidenav.css') }}">
+  
+  
+</head>
+  
+<body style="font-family: 'Do Hyeon', sans-serif;">
+
+    <style type="text/css">
+    .navbar {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #272727;
+    padding: 7px 30px;
+    font-size: 28px;
+    height: 75px;
+    width: 100%;
+    position: relative;
+    z-index: 500;
+    letter-spacing: 4px;
+    border-radius: 0px;
+    font-family: "Do Hyeon", sans-serif;
+}
+
+.navbar__logo {
+font-size: 40px;
+color: white;
+}
+
+.navbar_logo i {
+color: #b97f01;
+}
+
+.navbar_menu {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+
+.navbar_menu li {
+padding: 12px 12px;
+}
+
+.navbar_menu li:hover {
+background-color: #797979;
+border-radius: 5px;
+}
+    </style>
+    <nav class="navbar">
+        <div class="navbar_logo">
+          <i class="fas fa-warehouse"></i>
+          <a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;" >ISYT</a>
+        </div>
+        <ul class="navbar_menu">
+          {%if g.user%}
+          <li><a href="logout" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">{{ g.user.username }} 로그아웃</a></li>
+          {%else%}
+          <li><a href="login" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그인</a></li>
+          {%endif%}
+          <li><a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">홈</a></li>
+          <li><a href="about" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">사이트소개</a></li>
+          <li><a href="calendar" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">마이페이지</a></li>
+        </ul>
+    </nav>
+    <div id="mysidenav" class="sidenav">
+      <p>내 클래스 목록</p>
+      <p>클래스</p>
+      <div id="class_list">
+      {{data | safe}}
+      </div>
+      <p class="closebtn" style="position:absolute; cursor:pointer; margin-top: 95px;" onclick='closeNav()'>←</p>
+      </div>
+      <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>할 일 목록</span>
+        <div class="container" style="margin-top: -20px;">
+        <div id="calendar"></div>
+        <div style="display: none;">
+          <button type="button" id="status" onclick="modaldata_load()" hide>예약확인</button>
+        </div>
+        </div>
+
+  <!-- 모달 -->
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="margin-top: 150px;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4><input class="modal-title" type="text" name="title" id="title" placeholder="클래스 이름" /></h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">이름 :</label>
+          <input type="text" class="form-control" id="recipient_name" placeholder="이름을 입력하세요!">
+        </div>
+
+        <div class="form-group">
+          <label for="email">이메일 주소 :</label>
+          <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요!">
+        </div>
+
+        <div class="form-group">
+          <label for="Phone_number">핸드폰 번호 : </label>
+          <input type="text" class="form-control" id="phone_number" placeholder="전화번호를 입력하세요">
+        </div>
+
+        <div>
+          <label for="room" class="col-form-label">선택할공간 :</label>
+          <br>
+          <label for="room">1번방</label>
+          <input type="radio" name="room" value="1번방" checked>
+          <br>
+          <label for="room">2번방</label>
+          <input type="radio" name="room" value="2번방">
+          <br>
+          <label for="room">3번방</label>
+          <input type="radio" name="room" value="3번방">
+        </div>
+
+        <div class="form-group">
+          <label for="message-text" class="col-form-label">내용 :</label>
+          <textarea class="form-control" id="message_text" placeholder="수업내용에 대해 적어주세요!"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="col-xs-4" for="starts-at">시작일</label>
+            <input type="text" name="starts_at" id="starts-at" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="col-xs-4" for="ends-at">종료일</label>
+            <input type="text" name="ends_at" id="ends-at" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="reservation" onclick="reservation()">예약</button>
+        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<style type="text/css">
+  .bottom {
+    color: rgba(114, 112, 112, 0.904);
+    position: relative;
+    text-align: center;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 15px;
+    margin-top: 30px;
+  }
+</style>
+<hr style="color: rgba(189,184, 184, 0.925);">
+<div class="bottom" style="text-align: center;">
+  서울시 관악구 봉천로 227 보라매샤르망 6층 </br>
+  대표자 : 김승환 | 사업자 등록 번호 000-00-00000 </br>
+  영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
+  © ISYT
+</div>
+
+<script>
+  function openNav() {
+    document.getElementById('mysidenav').style.width = '300px';
+  }
+  function closeNav() {
+    document.getElementById('mysidenav').style.width = '0';
+  };
+</script>
+<script>
+  function modaldata_load() {
+
+    $.ajax({
+      type: 'POST',
+      url: '/postdata',
+      datatype: 'JSON',
+      success:function(result){
+        
+        for (i=0; i<result.length; i++) {
+          var eventData = {
+            title: result[i]['title'],
+            name: result[i]['recipient_name'],
+            email: result[i]['email'],
+            Phone_number: result[i]['phone_number'],
+            room: result[i]['room'],
+            message_text: result[i]['message_text'],
+            start: result[i]['start'],
+            end: result[i]['end']
+          };
+          $("#calendar").fullCalendar("renderEvent", eventData, true);
+          $("#status").hide();
+        }
+      },   
+      error:function(){
+        alert("등록되어있는 내용이 없습니다");
+      } 
+    });
+  }
+</script>
+<script>
+  
+
+  function reservation() {
+    var title = $("#title").val();
+    var name = $("#recipient_name").val();
+    var email = $("#email").val();
+    var phone_number = $("#phone_number").val();
+    var room = $(":input:radio[name=room]:checked").val();
+    var message_text = $("#message_text").val();
+    var start = $("#starts-at").val();
+    var end = $("#ends-at").val();
+
+    var modal_data = {
+      'title':title, 
+      'name':name, 
+      'email':email, 
+      'phone_number':phone_number, 
+      'room':room, 
+      'message_text':message_text, 
+      'start':start, 
+      'end':end
+    }
+
+    $.ajax ({
+      type:'POST',
+      url: '{{url_for("reservation")}}',
+      data: JSON.stringify(modal_data),
+      dataType: 'JSON',
+      contentType: "application/json",
+      success: function(data){
+        alert('등록이 완료되었습니다')
+      },
+      error: function(request, status, error){
+        alert('ajax 통신 실패')
+        alert(error);
+      }
+    });
+    $(".modal").modal("hide");
+
+  }
+</script>
+<script>
+  function make_list(title) {
+    let temp_html = "<button><a href='/calendar/status={id}'>{title}</a></button>"
+    return temp_html;
+  }
+  
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+<!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
+<script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
+<!--LOGO IMG-->
+
+
+<script>
+$("#starts-at, #ends-at").datetimepicker({
+  format : 'YYYY-MM-DD'
+});
+
+var editstart = $('#starts-at');
+var editend = $('#ends-at') 
+  
+$(document).ready(function() {
+  
+  $("#calendar").fullCalendar({
+    header: {
+      left: "prev,next today",
+      center: "title",
+      right: "month,agendaWeek,agendaDay"
+    },
+    defaultView: "month",
+    navLinks: true, // can click day/week names to navigate views
+    selectable: true,
+    selectHelper: true,
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events
+    
+    select: function(start, end) {
+      // Display the modal.
+      // You could fill in the start and end fields based on the parameters
+      var g_user = '{{ g.user[1] }}';
+
+      if (g_user == 'student') {
+        alert('권한이 없습니다')
+        $("#calendar").fullCalendar("unselect");
+      } else {
+        $(".modal").modal("show");
+        $(".modal")
+          .find("#title")
+          .val("");
+        $(".modal")
+          .find(editstart)
+          .val(start);
+        $(".modal")
+          .find(editend)
+          .val(end);
+        $("#save-event").show();
+        $("input").prop("readonly", false);
+        $("textarea").prop("readonly", false);
+      };
+      $("#reservation").hide();
+    },
+    
+    eventRender: function(event, element) {
+      //dynamically prepend close button to event
+      element
+        .find(".fc-content")
+        .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
+      element.find(".closeon").on("click", function() {
+        $("#calendar").fullCalendar("removeEvents", event._id);
+      });
+    },
+
+    eventClick: function(calEvent, jsEvent) {
+
+      // Display the modal and set event values.
+      $(".modal").modal("show");
+      $(".modal")
+        .find("#title")
+        .val(calEvent.title);
+      $(".modal")
+        .find("#recipient_name")
+        .val(calEvent.name);
+      $(".modal")
+        .find("#email")
+        .val(calEvent.email);
+      $(".modal")
+        .find("#room")
+        .val(calEvent.room);
+      $(".modal")
+        .find("#message_text")
+        .val(calEvent.message_text);
+      $(".modal")
+        .find("#phone_number")
+        .val(calEvent.phone_number);
+      $(".modal")
+        .find("#starts-at")
+        .val(calEvent.start);
+      $(".modal")
+        .find("#ends-at")
+        .val(calEvent.end);
+
+      $("#save-event").hide();
+      $("#reservation").show();
+      $("input").prop("readonly", true);
+      $("radio").prop("return", false);
+      $("textarea").prop("readonly", true);
+
+    }
+  });
+
+  // Bind the dates to datetimepicker.
+  // $("#starts-at, #ends-at").datetimepicker();
+
+  //click to save "save"
+  $("#save-event").on("click", function(event) {
+    var title = $("#title").val();
+    var name = $("#recipient_name").val();
+    var email = $("#email").val();
+    var phone_number = $("#phone_number").val();
+    var room = $(":input:radio[name=room]:checked").val();
+    var message_text = $("#message_text").val();
+    var start = $("#starts-at").val();
+    var end = $("#ends-at").val();
+
+    var postdata = {
+      'title':title, 
+      'name':name, 
+      'email':email, 
+      'phone_number':phone_number, 
+      'room':room, 
+      'message_text':message_text, 
+      'start':start, 
+      'end':end
+    }
+    if (postdata.start > postdata.end){
+      alert('끝나는 날짜가 앞설수 없습니다')
+      return false
+    }
+    if (postdata.title === ''){
+      alert('일정명을 입력해주세요')
+      return false
+    }
+
+    $.ajax ({
+      type:'POST',
+      url: '{{url_for("modal_data")}}',
+      data: JSON.stringify(postdata),
+      dataType: 'JSON',
+      contentType: "application/json",
+      success: function(data){
+        alert('등록이 완료되었습니다')
+        let append_one = make_list(postdata['title']);
+        $('#class_list').append(append_one);
+      },
+      error: function(request, status, error){
+        alert('ajax 통신 실패')
+        alert(error);
+      }
+    });
+    
+    if (title) {
+      var eventData = {
+        title: title,
+        name: name,
+        email: email,
+        phone_number: phone_number,
+        room: room,
+        message_text: message_text,
+        start: start,
+        end: end
+      };
+
+      
+      $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
+    }
+    $("#calendar").fullCalendar("unselect");
+
+    // Clear modal inputs
+    $(".modal")
+      .find("input")  
+      .val("");
+    $(".modal")
+      .find("radio")
+      .val("");
+    $(".modal")
+      .find("textarea")
+      .val("");
+
+    // hide modal
+    $(".modal").modal("hide");
+  });
+
+  $("textarea").autosize();
+  
+
+});
+
+$("#status").trigger("click");
+
+</script>
+
+</body>
+
+</html>

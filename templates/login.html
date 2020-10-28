@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block section %}
+
+<div class="login-page">
+    <div class="form">
+    <form class="login-form" method="POST">
+        <input type="text" placeholder="아이디" name="username">
+        <input type="password" placeholder="비밀번호" name="password">
+        <button type="submit">로그인</button>
+        <p class="message">계정이 없으신가요? <a href="create">회원가입하기</a></p>
+    </form>
+    </div>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <script type="text/javascript">
+        alert("{{messages[0]}}");
+    </script>
+{% endif %}
+{% endwith %}
+
+{% endblock %}

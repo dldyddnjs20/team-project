@@ -1,0 +1,46 @@
+.main_text>h1 {
+    color: white;
+    position: absolute;
+    text-align: center;
+    line-height: 30px;
+    width: 1920px;
+    height: 30px;
+    top: 300px;
+    font-size: 80px;
+    letter-spacing: 5px;
+}
+
+.main_text>p {
+    color: aliceblue;
+    position: absolute;
+    text-align: center;
+    line-height: 80px;
+    width: 1920px;
+    height: 30px;
+    top: 450px;
+    font-size: 40px;
+    letter-spacing: 8px;
+}
+
+.button {
+    position: absolute;
+    height: 90px;
+    width: 300px;
+    margin: -150px 0px 0px -200px;
+    top: 850px;
+    left: 1000px;
+    padding: 0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    line-height: 90px;
+    color: white;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+.button:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.863);
+    cursor: pointer;
+}

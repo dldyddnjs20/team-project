@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+{% endblock %}
+
+{% block section %}
+
+<div class="create-page">
+    <div class="form">
+    <form action="/register" method="POST">
+        <input type="text" placeholder="이름" name="name">
+        <input type="text" placeholder="아이디" name="username">
+        <input type="password" placeholder="비밀번호" name="password">
+        <input type="text" placeholder="전화번호" name=phone>
+        <input type="radio" id="student" name="degree" value="student" checked="checked">
+        <label for="student">학생</label>
+        <input type="radio" id="teacher" name="degree" value="teacher">
+        <label for="teacher" >선생님</label>
+        <button type="submit">회원가입</button>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

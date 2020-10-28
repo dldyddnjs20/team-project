@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    {% block link %}
+    {% endblock %}
+
+    <title>ISYT</title>
+</head>
+<body>
+  <div class="slide">
+    <ul class="slide_ul">
+    <li><a><img src="{{ url_for('static', filename='img/slide_1.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_2.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_3.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_5.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_4.jpg') }}"></a></li>
+    </ul>
+</div>
+    <nav class="navbar">
+        <div class="navbar_logo">
+          <i class="fas fa-warehouse"></i>
+          <a href="/">ISYT</a>
+        </div>
+        <ul class="navbar_menu">
+          {%if g.user%}
+          <li><a href="logout">{{ g.user.username }} 로그아웃</a></li>
+          {%else%}
+          <li><a href="login">로그인</a></li>
+          {%endif%}
+          <li><a href="/">홈</a></li>
+          <li><a href="about">사이트소개</a></li>
+          <li><a href="calendar">마이페이지</a></li>
+        </ul>
+    </nav>
+    <section>
+        {% block section %}
+        {% endblock %}
+    </section>
+    <div class="bottom">
+        <hr>
+        서울시 관악구 봉천로 227 보라매샤르망 6층 </br>
+        대표자 : 김승환 | 사업자 등록 번호 000-00-00000 </br>
+        영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
+        © ISYT
+    </div>
+</body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
+    {%block scripts%}
+    {%endblock%}
+
+</html>

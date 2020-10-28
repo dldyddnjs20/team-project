@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='js/about.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
+    
+    <script>
+        new WOW().init();
+    </script>
+
+    <title>ISYT</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar_logo">
+            <i class="fas fa-warehouse"></i>
+            <a href="/">ISYT</a>
+        </div>
+        <ul class="navbar_menu">
+            {%if g.user%}
+            <li><a href="logout">{{ g.user.username }} 로그아웃</a></li>
+            {%else%}
+            <li><a href="login">로그인</a></li>
+            {%endif%}
+            <li><a href="/">홈</a></li>
+            <li><a href="about">사이트소개</a></li>
+            <li><a href="calendar">마이페이지</a></li>
+        </ul>
+    </nav>
+    <img src="{{ url_for('static', filename='img/about.jpg') }}" style="position: relative;width: 1903px;height: 650px;filter: brightness(60%);">
+    <div class="main_text">
+        <h1>다양하고 색다른 공간을 찾고 계신가요?</h1>
+        <p>ISYT에서 누구나 편리하게 공간을 대여하고</br>
+            캘린더를 이용하여 손쉽게 예약할 수 있습니다!</p>
+    </div>
+
+    <div class="content">
+        <a href="#button1">프로젝트 소개</a></br>
+        <a href="#button2">사용 기술</a></br>
+        <a href="#button3">멤버</a></br>
+        <a href="#" class="top"><i class="fas fa-chevron-up"></i></a></br>
+    </div>
+
+    <div id="button1" class="button1">
+        <h2>프로젝트 소개</h2>
+        <div class="about">
+            <div class="about_img">
+            <img class="wow fadeIn" data-wow-delay="1s" src="{{ url_for('static', filename='img/people.png') }}" style="width: 250px; height: 170px; margin: 40px;">
+            <img class="wow fadeIn" data-wow-delay="1.4s" src="{{ url_for('static', filename='img/arrow.png') }}" style="width: 100px; height: 100px; margin-bottom: 65px;">
+            <img class="wow fadeIn" data-wow-delay="1.8s" src="{{ url_for('static', filename='img/login.png') }}" style="width: 220px; height: 170px; margin: 40px;">
+            <img class="wow fadeIn" data-wow-delay="2.2s" src="{{ url_for('static', filename='img/arrow.png') }}" style="width: 100px; height: 100px; margin-bottom: 65px;">
+            <img class="wow fadeIn" data-wow-delay="2.6s" src="{{ url_for('static', filename='img/calendar.png') }}" style="width: 230px; height: 170px; margin: 40px;">
+            </div>
+            저희 ISYT는 사람들이 클래스 수업을 열고 싶지만 장소가 없는 분들을 위해</br>
+            장소 대여 서비스를 제공하기 위해서 프로젝트를 만들었습니다.</br>
+            간편하게 회원가입을 하고 캘린더를 이용하여 편리하게 일정 관리를 도와줍니다.
+        </div>
+    </div>
+    <div id="button2" class="button2">
+        <h2>사용 기술</h2>
+        <div class="skill">
+            <div class="wow fadeInUp" data-wow-delay="0.8s" style="box-shadow: 2px 2px 2px 2px gray; border-radius: 10px;">
+                <img src="{{ url_for('static', filename='img/windows10.png') }}" style="width: 300px; height: 170px;">
+                <img src="{{ url_for('static', filename='img/chrome.jpg') }}" style="width: 300px; height: 170px; margin-left: 50px;">
+            </div>
+            <h3>개발 환경</h3>
+            <div class="wow fadeInUp" data-wow-delay="0.8s" style="box-shadow: 2px 2px 2px 2px gray; border-radius: 10px;">
+                <img src="{{ url_for('static', filename='img/python.png') }}" style="width: 150px; height: 150px; left: -20px;">
+                <img src="{{ url_for('static', filename='img/flask.png') }}" style="width: 200px; height: 100px; top: -25px;">
+                <img src="{{ url_for('static', filename='img/html.jpg') }}" style="width: 330px; height: 200px; top: 12px;">
+                <img src="{{ url_for('static', filename='img/jquery.png') }}" style="width: 300px; height: 150px; top: -8px;">
+                <img src="{{ url_for('static', filename='img/ajax.png') }}" style="width: 250px; height: 120px; top: -45px;">
+                <img src="{{ url_for('static', filename='img/bootstrap.png') }}" style="width: 200px; height: 180px;">
+            </div>
+            <h3>개발 언어</h3>
+            <div class="wow fadeInUp" data-wow-delay="0.8s" style="box-shadow: 2px 2px 2px 2px gray; border-radius: 10px;  padding: 20px;">
+                <img src="{{ url_for('static', filename='img/mariadb.png') }}" style="width: 250px; height: 130px;">
+            </div>
+            <h3>DBMS</h3>
+            <div class="wow fadeInUp" data-wow-delay="0.8s" style="box-shadow: 2px 2px 2px 2px gray; border-radius: 10px;">
+                <img src="{{ url_for('static', filename='img/github.jpg') }}" style="width: 300px; height: 150px; top: 10px;">
+                <img src="{{ url_for('static', filename='img/mysql.png') }}" style="width: 200px; height: 100px; top: -25px;">
+                <img src="{{ url_for('static', filename='img/dbeaver.png') }}" style="width: 270px; height: 100px; top: -20px; right: -40px;">
+            </div>
+            <h3>개발 도구</h3>
+        </div>
+    </div>
+    <div id="button3" class="button3">
+        <h2>멤버</h2>
+        <div class="member">
+            <i class="fas fa-user-tie"></i>
+            <p>
+                <strong>팀장</strong></br>
+                조원들과 회의 진행, 일정 관리, 업무 조율, 업무 배포 등을 하고
+                프로젝트 호스팅 계정관리, URL연결 작업,</br> Bootstrap 활용 기본템플릿 설계
+                FullCalendar를 사용하여 달력을 적용, 전체 프로젝트 문서 작성 및 관리,</br>
+                완료보고서 작성을 합니다.
+            </p>
+        </div>
+        <h6>김승환</h6>
+        <div class="member">
+            <i class="fas fa-user"></i>
+            <p>
+                <strong>조원</strong></br>
+                ERD작성 및 관리, 로그인/회원가입 DB설계 Bootstrap 활용 템플릿을
+                가공하여 Flask 서버에 맞게 수정,</br> FullCalendar에 예약시스템을 적용, 전체
+                DBMS 관리 및 TABLE 스키마, Flask 서버구축등을 합니다.
+            </p>
+        </div>
+        <h6>마건익</h6>
+        <div class="member">
+            <i class="fas fa-user"></i>
+            <p>
+                <strong>조원</strong></br>
+                Bootstrap을 활용하여화면 및 모듈 분리, 메인 화면 Layout 설계 및 구현과
+                을 하고</br> Background image에 carousel을 적용하여 배경애니메이션을 구현,
+                로그인 회원가입 폼 작성등을 합니다.
+            </p>
+        </div>
+        <h6>이용원</h6>
+        <div class="member">
+            <i class="fas fa-user"></i>
+            <p>
+                <strong>조원</strong></br>
+                메인 화면 Layout 설계 및 구현과 메인 화면의 테마, Content,
+                디자인을 설계하고</br> Background image에 carousel을 적용하여 배경애니메이션을 구현,
+                로그인 회원가입 폼 작성등을 합니다.
+            </p>
+        </div>
+        <h6>고은서</h6>
+    </div>
+
+    <div class="bottom">
+        <hr>
+        서울시 관악구 봉천로 227 보라매샤르망 6층 </br>
+        대표자 : 김승환 | 사업자 등록 번호 000-00-00000 </br>
+        영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
+        © ISYT
+    </div>
+</body>
+</html>
